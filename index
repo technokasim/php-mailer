@@ -1,0 +1,47 @@
+<?php
+
+
+	require 'class/class.phpmailer.php';
+	$output = '';
+	$email = 'techno@gmail.com';
+	$subject = 'subject';
+	$message = 'message testing';
+
+
+	$mail = new PHPMailer;
+	$mail->IsSMTP();								//Sets Mailer to send message using SMTP
+	$mail->Host = 'smtp';		//Sets the SMTP hosts of your Email hosting, this for Godaddy
+	$mail->Port = '**';								//Sets the default SMTP server port
+	$mail->SMTPAuth = true;							//Sets SMTP authentication. Utilizes the Username and Password variables
+	$mail->Username = 'username';					//Sets SMTP username
+	$mail->Password = '*****';					//Sets SMTP password
+	$mail->SMTPSecure = 'ssl';							//Sets connection prefix. Options are "", "ssl" or "tls"
+	$mail->From = 'from';			//Sets the From email address for the message
+	$mail->FromName = 'techno';					//Sets the From name of the message
+	$mail->AddAddress($email);	//Adds a "To" address
+	$mail->WordWrap = 50;							//Sets word wrapping on the body of the message to a given number of characters
+	$mail->IsHTML(true);							//Sets message type to HTML
+	$mail->Subject = $subject; //Sets the Subject of the message
+	//An HTML or plain text message body
+	$mail->Body = $message;
+
+	$mail->AltBody = '';
+
+	$result = $mail->Send();						//Send an Email. Return true on success or false on error
+
+	if($result["code"] == '400')
+	{
+		$output .= html_entity_decode($result['full_error']);
+	}
+
+	if($output == '')
+	{
+		echo 'Email Sent Successfully tess';
+	}
+	else
+	{
+		echo 'result' . $result;
+	}
+// }
+
+?>
